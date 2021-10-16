@@ -95,3 +95,7 @@ function snapCracklePrime(maxValue) {
 
    return str.substring(0, str.length - 2);
 }
+
+console.log(snapCrackle(30)); // chamada da função snapCrackle
+
+console.log(snapCracklePrime(30)); // chamada da função snapCracklePrime
