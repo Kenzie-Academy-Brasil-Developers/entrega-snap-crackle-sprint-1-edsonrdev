@@ -3,20 +3,20 @@ function snapCrackle(maxValue) {
 
    for (let i = 1; i <= maxValue; i++) {   
       
-      if (i % 2 != 0 && i % 5 != 0) { // ímpar, não múltiplo de 5
-         str = str + 'Snap, ';
+      if (i % 2 !== 0 && i % 5 !== 0) { // ímpar, não múltiplo de 5
+         str += 'Snap, ';
       }
 
-      if (i % 5 == 0 && i % 2 == 0) { // múltiplo de 5 e par
-         str = str + 'Crackle, ';
+      if (i % 2 === 0 && i % 5 === 0) { // par, múltiplo de 5
+         str += 'Crackle, ';
       }
 
-      if (i % 2 != 0 && i % 5 == 0) { // ímpar e múltiplo de 5
-         str = str + 'SnapCrackle, ';
+      if (i % 2 !== 0 && i % 5 === 0) { // ímpar, múltiplo de 5
+         str += 'SnapCrackle, ';
       }
 
-      if (i % 2 == 0 && i % 5 != 0) { // par e não múltiplo de 5
-         str = str + `${i}, `;
+      if (i % 2 === 0 && i % 5 !== 0) { // par, não múltiplo de 5
+         str += `${i}, `;
       }
    }
 
@@ -30,72 +30,60 @@ function snapCrackle(maxValue) {
 
 function snapCracklePrime(maxValue) {
    let str = '';
-   let dividers = 0; // total de divisores de um número, usado para descobrir se este é primo ou não
 
    for (let i = 1; i <= maxValue; i++) {   
       
-      if (i % 2 != 0 && i % 5 != 0) { // ímpar, não múltiplo de 5
-         for (let j = 1; j <= i; j++) {
-            if (i % j == 0) {
-               dividers++;
-            }
-         }
-
-         if (dividers == 2) {
-            str = str + 'SnapPrime, ';
+      if (i % 2 !== 0 && i % 5 !== 0) { // ímpar, não múltiplo de 5
+         if (isPrimeNumber(i)) {
+            str += 'SnapPrime, ';
          } else {
-            str = str + 'Snap, ';
+            str += 'Snap, ';
          }
-
-         dividers = 0;
       }
 
-      if (i % 5 == 0 && i % 2 == 0) { // múltiplo de 5 e par
-         for (let j = 1; j <= i; j++) {
-            if (i % j == 0) {
-               dividers++;
-            }
-         }
-
-         if (dividers == 2) {
-            str = str + 'CracklePrime, ';
+      if (i % 2 === 0 && i % 5 === 0) { // par, múltiplo de 5
+         if (isPrimeNumber(i)) {
+            str += 'CracklePrime, ';
          } else {
-            str = str + 'Crackle, ';
+            str += 'Crackle, ';
          }
-
-         dividers = 0;
       }
 
-      if (i % 2 != 0 && i % 5 == 0) { // ímpar e múltiplo de 5
-         for (let j = 1; j <= i; j++) {
-            if (i % j == 0) {
-               dividers++;
-            }
-         }
-
-         if (dividers == 2) {
-            str = str + 'SnapCracklePrime, ';
+      if (i % 2 !== 0 && i % 5 === 0) { // ímpar, múltiplo de 5
+         if (isPrimeNumber(i)) {
+            str += 'SnapCracklePrime, ';
          } else {
-            str = str + 'SnapCrackle, ';
+            str += 'SnapCrackle, ';
          }
-
-         dividers = 0;
       }
 
-      if (i % 2 == 0 && i % 5 != 0) { // par e não múltiplo de 5
-         if (i == 2) {
-            str = str + 'Prime, ';
+      if (i % 2 === 0 && i % 5 !== 0) { // par, não múltiplo de 5
+         if (isPrimeNumber(i)) {
+            str += 'Prime, ';
          } else {
-            str = str + `${i}, `;
+            str += `${i}, `;
          }
-
-         dividers = 0;
       }
    }
 
    return str.substring(0, str.length - 2);
 }
 
-console.log(snapCrackle(30)); // chamada da função snapCrackle
+function isPrimeNumber(value) {
+   let div = 0; // total de divisores, usado para descobrir se o valor passado é primo ou não
 
+   for (let count = 1; count <= value; count++) {
+      if (value % count === 0) {
+         div++;
+      }
+   }
+
+   /*
+      Se tiver exatamente 2 divisores, será
+      primo e, portanto, e retornará true
+   */
+   return (div === 2) ? true : false;
+}
+
+console.log(snapCrackle(30)); // chamada da função snapCrackle
 console.log(snapCracklePrime(30)); // chamada da função snapCracklePrime
